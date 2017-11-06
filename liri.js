@@ -18,6 +18,9 @@ var musicLover = new Spotify({
     secret: superKeys.spotifyKeys.secret
 });
 
+var request = require('request');
+
+
 function tweets() {
     var params = { screen_name: 'foodnetwork', count: "20" };
     tweeter.get('statuses/user_timeline', params, function(error, tweets, response) {
@@ -31,18 +34,28 @@ function tweets() {
 
 function spotify() {
 
-    musicLover.search({ type: 'track', query: additional}, function(err, data) {
+    musicLover.search({ type: 'track', query: additional }, function(err, data) {
         if (!err) {
             console.log(data.tracks.items);
-      
-        }
 
-        
+        }
     });
 }
 
 function movies() {
-
+    if (additional != null) {
+        request('http://www.omdbapi.com/?apikey=40e9cece&s=' + additional, function(error, response, body) {
+            console.log('error:', error);
+            console.log('statusCode:', response && response.statusCode);
+            console.log('body:', body);
+        });
+    } else {
+        request('http://www.omdbapi.com/?apikey=40e9cece&s=mr+nobody', function(error, response, body) {
+            console.log('error:', error);
+            console.log('statusCode:', response && response.statusCode);
+            console.log('body:', body);
+        });
+    }
 }
 
 function dwis() {
