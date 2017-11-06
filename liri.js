@@ -44,16 +44,18 @@ function spotify() {
 
 function movies() {
     if (additional != null) {
-        request('http://www.omdbapi.com/?apikey=40e9cece&s=' + additional, function(error, response, body) {
-            console.log('error:', error);
-            console.log('statusCode:', response && response.statusCode);
-            console.log('body:', body);
+        request('http://www.omdbapi.com/?apikey=40e9cece&t=' + additional, function(error, response, body) {
+            console.log(JSON.parse(body).Title + " " + JSON.parse(body).Year + "\nIMDB Rating: " + JSON.parse(body).imdbRating +
+                "\nRotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value + "\nCountry: " + JSON.parse(body).Country +
+                "\nLanguages: " + JSON.parse(body).Language + "\nPlot: " + JSON.parse(body).Plot +
+                "\nActors: " + JSON.parse(body).Actors);
         });
     } else {
-        request('http://www.omdbapi.com/?apikey=40e9cece&s=mr+nobody', function(error, response, body) {
-            console.log('error:', error);
-            console.log('statusCode:', response && response.statusCode);
-            console.log('body:', body);
+        request('http://www.omdbapi.com/?apikey=40e9cece&t=mr+nobody', function(error, response, body) {
+            console.log(JSON.parse(body).Title + " " + JSON.parse(body).Year + "\nIMDB Rating: " + JSON.parse(body).imdbRating +
+                "\nRotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value + "\nCountry: " + JSON.parse(body).Country +
+                "\nLanguages: " + JSON.parse(body).Language + "\nPlot: " + JSON.parse(body).Plot +
+                "\nActors: " + JSON.parse(body).Actors);
         });
     }
 }
