@@ -34,7 +34,7 @@ function tweets() {
 
 function spotify() {
 
-    musicLover.search({ type: 'track', query: additional }, function(err, data) {
+    musicLover.search({ type: 'track', query: additional, limit: 1 }, function(err, data) {
         if (!err) {
             console.log(data.tracks.items);
 
@@ -61,7 +61,28 @@ function movies() {
 }
 
 function dwis() {
-
+    fs.readFile('random.txt', 'utf8', (err, data) => {
+        if (err) throw err;
+        var newFile = data.split(",");
+        execute = newFile[0].trim();
+        additional = newFile[1].trim();
+        switch (execute) {
+            case 'my-tweets':
+                tweets();
+                break;
+            case 'spotify-this-song':
+                spotify();
+                break;
+            case 'movie-this':
+                movies();
+                break;
+            case 'do-what-it-says':
+                dwis();
+                break;
+            default:
+                console.log("LIRI doesn't know that");
+        }
+    });
 }
 switch (execute) {
     case 'my-tweets':
@@ -76,4 +97,6 @@ switch (execute) {
     case 'do-what-it-says':
         dwis();
         break;
+    default:
+        console.log("LIRI doesn't know that");
 }
